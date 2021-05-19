@@ -60,5 +60,11 @@ public class CollisionManager : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
+
+        if(collision.gameObject.tag == "BouncePlatform")
+        {
+            //Play bouncy sound
+
+        }
     }
 }

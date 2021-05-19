@@ -6,20 +6,17 @@ public class Keys : MonoBehaviour
 {
     public GameObject blueKey;
     public GameObject redKey;
+    public GameObject greenKey;
 
     private bool blueAquired;
     private bool redAquired;
+    private bool greenAquired;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        blueAquired = false;
+        redAquired = false;
+        greenAquired = false;
     }
 
     public void KeyAquired(string colour)
@@ -34,11 +31,15 @@ public class Keys : MonoBehaviour
                 redAquired = true;
                 Destroy(redKey);
                 break;
+            case "Green":
+                greenAquired = true;
+                Destroy(greenKey);
+                break;
             default:
                 break;
         }
 
-        if(blueAquired && redAquired )
+        if(blueAquired && redAquired && greenAquired)
         {
             //open the gates of babylon yea
         }

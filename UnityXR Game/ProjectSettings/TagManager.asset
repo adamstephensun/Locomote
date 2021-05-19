@@ -10,6 +10,7 @@ TagManager:
   - UnderLevel
   - RedKey
   - BlueKey
+  - BouncePlatform
   layers:
   - Default
   - TransparentFX
