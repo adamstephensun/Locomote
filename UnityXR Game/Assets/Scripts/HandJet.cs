@@ -13,14 +13,15 @@ public class HandJet : MonoBehaviour
     private ParticleSystem.EmissionModule em;
     private ParticleSystem.MainModule main;
 
-    public float powerMultiplier = 10.0f;
+    private float startingMaxFuel;
     private float jetPower;
     private bool particleOn;
-    private float startingMaxFuel;
     private float currentFuel;
+    private float refillTimer;
+
+    public float powerMultiplier = 10.0f;
     public float fuelDrainRate;
     public float fuelRefillRate;
-    private float refillTimer;
     public float refilDelay;
 
     private Text debugText;
@@ -46,19 +47,19 @@ public class HandJet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(jetPower > 0.1 && currentFuel > 0)
+        if(jetPower > 0.11 && currentFuel > 0)
         {
-            Vector3 force = transform.up * jetPower * powerMultiplier;
+            Vector3 force = transform.up * jetPower * powerMultiplier;      //Calculates the physics force to be applied to the player
 
-            if (bodyRb != null) bodyRb.AddForce(force);
-            else bodyRb = GameObject.Find("VRRig").GetComponent<Rigidbody>();
+            if (bodyRb != null) bodyRb.AddForce(force);     //If there is a rigidbody, apply the force
+            else bodyRb = GameObject.Find("VRRig").GetComponent<Rigidbody>();   //If there is no rb, find it
 
             debugText.text = "Force x:" + force.x.ToString()+ " y:" + force.y.ToString() + " z:" + force.z.ToString();
 
             refillTimer = 0;    //Resets the fuel refil timer when the jet is powered
             decreaseFuel();     //Decreases the fuel level
 
-            main.startSpeed = 4 + jetPower; //Changes the speed of the particle system 
+            main.startSpeed = 4 + jetPower; //Changes the speed of the particle system based on the power
 
             if (particleOn == false && currentFuel > 0)
             {
@@ -69,7 +70,6 @@ public class HandJet : MonoBehaviour
         }
         if (jetPower == 0)
         {
-            //refillTimer = 0;
             refillTimer += Time.deltaTime;
             if (refillTimer > refilDelay) increaseFuel();
 

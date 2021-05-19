@@ -11,11 +11,10 @@ public class CollisionManager : MonoBehaviour
 
     private void Start()
     {
-
         keyController = GameObject.Find("Keys").GetComponent<Keys>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "UnderLevel")    //Level wide catch
         {
@@ -51,6 +50,7 @@ public class CollisionManager : MonoBehaviour
         {
             float currentMax = PlayerPrefs.GetFloat("MaxFuel");
             PlayerPrefs.SetFloat("MaxFuel", currentMax + 10);
+            Debug.Log("Fuel increase pickup! Current max fuel: " + (currentMax + 10));
 
             Destroy(collision.gameObject);
         }

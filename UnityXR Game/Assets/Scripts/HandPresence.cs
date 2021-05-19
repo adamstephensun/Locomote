@@ -70,7 +70,7 @@ public class HandPresence : MonoBehaviour
                 spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
             }
 
-            if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValF) && triggerVal == 0)
+            if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValF) && triggerVal < 0.1)
             {
                 //Trigger not pressed
                 spawnedController.GetComponent<HandJet>().updateJetPower(0);
