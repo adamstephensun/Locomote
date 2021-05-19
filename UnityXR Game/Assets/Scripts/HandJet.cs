@@ -107,7 +107,7 @@ public class HandJet : MonoBehaviour
     {
         if (currentFuel > 0) //If there is fuel in the tank
         {
-            currentFuel -= fuelDrainRate;   //Reduce the fuel by the fule drain rate
+            currentFuel -= jetPower;   //Reduce the fuel by the amount of power being used plus the drain rate
             if (currentFuel <= 0) currentFuel = 0;  //If the current fuel is <= 0, set it to zero
         }
     }

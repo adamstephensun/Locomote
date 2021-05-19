@@ -818,7 +818,7 @@ MonoBehaviour:
   jetParticle: {fileID: 6708357412586415210}
   jetNozzle: {fileID: 1920370853499387995}
   powerMultiplier: 30
-  fuelDrainRate: 1
+  fuelDrainRate: 0.5
   fuelRefillRate: 1
   refilDelay: 1
   fuelText: {fileID: 7851368828679601365}

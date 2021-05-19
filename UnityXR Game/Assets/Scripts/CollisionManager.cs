@@ -16,6 +16,8 @@ public class CollisionManager : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collision with tag: " + collision.gameObject.tag);
+
         if(collision.gameObject.tag == "UnderLevel")    //Level wide catch
         {
             gameObject.transform.position = defaultSpawnPoint.position; 
@@ -40,6 +42,8 @@ public class CollisionManager : MonoBehaviour
 
         if(collision.gameObject.tag == "BlueKey")
         {
+            Debug.Log("Blue key collision");
+
             //Play sound
             Destroy(collision.gameObject);
             keyController.KeyAquired("Blue");
@@ -48,8 +52,10 @@ public class CollisionManager : MonoBehaviour
 
         if(collision.gameObject.tag == "FuelIncreasePickup")
         {
+            //play sound
             float currentMax = PlayerPrefs.GetFloat("MaxFuel");
             PlayerPrefs.SetFloat("MaxFuel", currentMax + 10);
+
             Debug.Log("Fuel increase pickup! Current max fuel: " + (currentMax + 10));
 
             Destroy(collision.gameObject);
