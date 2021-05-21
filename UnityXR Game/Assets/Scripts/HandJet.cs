@@ -28,6 +28,10 @@ public class HandJet : MonoBehaviour
     public TextMeshProUGUI currentFuelText;
     public Slider fuelGauge;
 
+    private AudioSource jetSource;
+
+    private bool isAudioPlaying;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +40,9 @@ public class HandJet : MonoBehaviour
         em = jetParticle.emission;
         em.enabled = false;
         main = jetParticle.main;
+        isAudioPlaying = false;
+
+        jetSource = gameObject.GetComponentInChildren<AudioSource>();
 
         startingMaxFuel = 100;
         currentFuel = 100;
@@ -46,7 +53,7 @@ public class HandJet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(jetPower > 0.11 && currentFuel > 1)
+        if(jetPower > 0.11 && currentFuel > 0)
         {
             Vector3 force = transform.up * jetPower * powerMultiplier;      //Calculates the physics force to be applied to the player
 
@@ -64,9 +71,19 @@ public class HandJet : MonoBehaviour
                 em.enabled = true;
                 jetNozzle.GetComponent<Renderer>().material.color = Color.red;
             }
+            if(!isAudioPlaying) //If the audio isnt already playing, play it
+            {
+                jetSource.volume = 1;
+                jetSource.Play();
+                isAudioPlaying = true;
+            }
         }
         if (jetPower == 0)
         {
+            isAudioPlaying = false;
+            
+            if(jetSource.volume > 0) jetSource.volume -= 0.1f;
+            
             refillTimer += Time.deltaTime;
             if (refillTimer > refilDelay) increaseFuel();
 

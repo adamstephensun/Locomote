@@ -15,8 +15,11 @@ public class CollisionManager : MonoBehaviour
     private HandPresence rightHandPresence;
     public GameObject jetPrefab;
 
+    private CarterGames.Assets.AudioManager.AudioManager audioManager;
+
     private void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<CarterGames.Assets.AudioManager.AudioManager>();
         keyController = GameObject.Find("Keys").GetComponent<Keys>();
 
         rightHand = GameObject.Find("RightHand");
@@ -29,7 +32,7 @@ public class CollisionManager : MonoBehaviour
 
         if(collision.gameObject.tag == "UnderLevel")    //Level wide catch
         {
-            gameObject.transform.position = defaultSpawnPoint.position; 
+            gameObject.transform.position = defaultSpawnPoint.position;  
         }
 
         if(collision.gameObject.name == "UnderMapEnd")  //End of under map section
@@ -84,6 +87,7 @@ public class CollisionManager : MonoBehaviour
 
         if(collision.gameObject.tag == "JetPickup")
         {
+            audioManager.Play("PositiveChime", CarterGames.Assets.AudioManager.AudioHelper.AudioArgs("position", collision.gameObject.transform.position));
             //Play sound
             Debug.Log("Jet Pickup");
             rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();

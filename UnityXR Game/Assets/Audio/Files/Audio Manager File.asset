@@ -16,8 +16,83 @@ MonoBehaviour:
   - {fileID: 0}
   soundPrefab: {fileID: 977031777656076914, guid: c40912f5a7dede148af5b68dd313394f,
     type: 3}
-  isPopulated: 0
-  hasDirectories: 0
+  isPopulated: 1
+  hasDirectories: 1
   directory:
-  - 
-  library: []
+  - CasualGameSounds
+  - Clips
+  library:
+  - key: 1String
+    value: {fileID: 8300000, guid: 657578e4be6b64dbf9b09deada272e55, type: 3}
+  - key: 3NotesFast
+    value: {fileID: 8300000, guid: 89e6bc608da7b47d4914f3d9c2484e48, type: 3}
+  - key: Alert
+    value: {fileID: 8300000, guid: 72127805eb2bc4e7fbf2e02eca266cfa, type: 3}
+  - key: Blong
+    value: {fileID: 8300000, guid: dc6614beca09347ec9b258f12d154bdd, type: 3}
+  - key: Bloop
+    value: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+  - key: Boing
+    value: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+  - key: Boom
+    value: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
+  - key: Boom2
+    value: {fileID: 8300000, guid: cabfae866cab347928b74b7d0ca6bfa9, type: 3}
+  - key: Check
+    value: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
+  - key: Click
+    value: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
+  - key: ComputerFail
+    value: {fileID: 8300000, guid: 5039414d94a6e4e70a5ab9e8833e992a, type: 3}
+  - key: Doop
+    value: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+  - key: Error
+    value: {fileID: 8300000, guid: 724131bc8a7f34041bb9f1701f0cb58d, type: 3}
+  - key: FastStringsDown
+    value: {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
+  - key: HighBoing
+    value: {fileID: 8300000, guid: 7e9ee6dc04a5d40d1a5dfc4beb9865e7, type: 3}
+  - key: JudoChop
+    value: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
+  - key: KarateChop
+    value: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
+  - key: LowBong
+    value: {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
+  - key: LowBoom
+    value: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
+  - key: LowBoom2
+    value: {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}
+  - key: OldSkoolDie
+    value: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
+  - key: OldSkoolFail
+    value: {fileID: 8300000, guid: 881e3f52c86c94f26a60718d35627cd8, type: 3}
+  - key: Pop
+    value: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
+  - key: ShortClick
+    value: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
+  - key: SlowStrings
+    value: {fileID: 8300000, guid: a0ca8964c08d54c5dbebf245bdc474ca, type: 3}
+  - key: Snip
+    value: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
+  - key: Snip2
+    value: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+  - key: Spri ng
+    value: {fileID: 8300000, guid: a0010a1a0c474473b81729eb770c485f, type: 3}
+  - key: Success
+    value: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+  - key: Success2
+    value: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
+  - key: Success3
+    value: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
+  - key: Success4
+    value: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+  - key: Synth
+    value: {fileID: 8300000, guid: 35fbad8cdde724f11ba6481f1e64af71, type: 3}
+  - key: Victory
+    value: {fileID: 8300000, guid: 7478151cf36724a7dada558f746c3633, type: 3}
+  - key: VictoryHorns
+    value: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+  - key: JetLoop
+    value: {fileID: 8300000, guid: edc038e283eb4974983464eab93dc888, type: 3}
+  - key: PositiveChime
+    value: {fileID: 8300000, guid: d5935ba9c030d0b41b774a5f5b70fba6, type: 3}
