@@ -12,8 +12,9 @@ public class HandPresence : MonoBehaviour
 {
     public InputDeviceCharacteristics controllerCharacteristics;
 
-    public GameObject controllerPrefab;
+    public GameObject emptyHandPrefab;
     public GameObject leftControllerPrefab;
+    public GameObject jetPrefab;
     public bool isRight;
     private InputDevice targetDevice;
 
@@ -25,17 +26,19 @@ public class HandPresence : MonoBehaviour
         TryInitialiseHands();
     }
 
-    void TryInitialiseHands()
+    public void TryInitialiseHands()
     {
         List<InputDevice> devices = new List<InputDevice>();        //Create and populate a list of the current devices
         InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
+
+        if (spawnedController != null) Destroy(spawnedController);
 
         if (devices.Count > 0)
         {
             targetDevice = devices[0];
 
             GameObject prefab;
-            if (isRight) prefab = controllerPrefab;     //If the hand presence prefab is right, set the prefab to the right hand
+            if (isRight) prefab = emptyHandPrefab;     //If the hand presence prefab is right, set the prefab to the right hand
             else prefab = leftControllerPrefab;
 
             if (prefab) spawnedController = Instantiate(prefab, transform);         //If a prefab is loaded, instantiate it
@@ -81,5 +84,10 @@ public class HandPresence : MonoBehaviour
                 //Right thumbstick moved
             }
         }
+    }
+
+    public void updatePrefab()
+    {
+
     }
 }

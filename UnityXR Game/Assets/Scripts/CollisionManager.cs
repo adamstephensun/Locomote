@@ -1,22 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class CollisionManager : MonoBehaviour
 {
     public Transform defaultSpawnPoint;
     public Transform underMapSpawnPoint;
+    public Transform startAreaFallSpawnPoint;
 
     private Keys keyController;
+
+    private GameObject rightHand;
+    private HandPresence rightHandPresence;
+    public GameObject jetPrefab;
 
     private void Start()
     {
         keyController = GameObject.Find("Keys").GetComponent<Keys>();
+
+        rightHand = GameObject.Find("RightHand");
+        rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision with tag: " + collision.gameObject.tag);
+        //Debug.Log("Collision with tag: " + collision.gameObject.tag);
 
         if(collision.gameObject.tag == "UnderLevel")    //Level wide catch
         {
@@ -31,6 +40,12 @@ public class CollisionManager : MonoBehaviour
         if(collision.gameObject.tag == "UnderMapRespawn")   //Catch in under map section
         {
             gameObject.transform.position = underMapSpawnPoint.position;
+        }
+
+        if(collision.gameObject.tag == "StartAreaFallTrigger")
+        {
+            Debug.Log("Start area fall trigger");
+            gameObject.transform.position = startAreaFallSpawnPoint.position;
         }
 
         if(collision.gameObject.tag == "RedKey")
@@ -65,6 +80,24 @@ public class CollisionManager : MonoBehaviour
         {
             //Play bouncy sound
 
+        }
+
+        if(collision.gameObject.tag == "JetPickup")
+        {
+            //Play sound
+            Debug.Log("Jet Pickup");
+            rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
+
+            if(rightHandPresence == null)
+            {
+                Debug.Log("Could not find right hand presence");
+                rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
+            }
+
+            rightHandPresence.GetComponent<HandPresence>().emptyHandPrefab = jetPrefab;
+            rightHandPresence.TryInitialiseHands();
+
+            Destroy(collision.gameObject);
         }
     }
 }

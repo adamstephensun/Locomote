@@ -12,6 +12,8 @@ TagManager:
   - BlueKey
   - BouncePlatform
   - GreenKey
+  - JetPickup
+  - StartAreaFallTrigger
   layers:
   - Default
   - TransparentFX

@@ -24,8 +24,9 @@ public class HandJet : MonoBehaviour
     public float fuelRefillRate;
     public float refilDelay;
 
-    private Text debugText;
-    public TextMeshProUGUI fuelText;
+    public TextMeshProUGUI maxFuelText;
+    public TextMeshProUGUI currentFuelText;
+    public Slider fuelGauge;
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +37,6 @@ public class HandJet : MonoBehaviour
         em.enabled = false;
         main = jetParticle.main;
 
-        debugText = GameObject.Find("Debug").GetComponent<Text>();
-
         startingMaxFuel = 100;
         currentFuel = 100;
 
@@ -47,21 +46,19 @@ public class HandJet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(jetPower > 0.11 && currentFuel > 0)
+        if(jetPower > 0.11 && currentFuel > 1)
         {
             Vector3 force = transform.up * jetPower * powerMultiplier;      //Calculates the physics force to be applied to the player
 
             if (bodyRb != null) bodyRb.AddForce(force);     //If there is a rigidbody, apply the force
             else bodyRb = GameObject.Find("VRRig").GetComponent<Rigidbody>();   //If there is no rb, find it
 
-            debugText.text = "Force x:" + force.x.ToString()+ " y:" + force.y.ToString() + " z:" + force.z.ToString();
-
             refillTimer = 0;    //Resets the fuel refil timer when the jet is powered
             decreaseFuel();     //Decreases the fuel level
 
             main.startSpeed = 4 + jetPower; //Changes the speed of the particle system based on the power
 
-            if (particleOn == false && currentFuel > 0)
+            if (particleOn == false && currentFuel > 1)
             {
                 particleOn = true;
                 em.enabled = true;
@@ -78,9 +75,17 @@ public class HandJet : MonoBehaviour
             jetNozzle.GetComponent<Renderer>().material.color = Color.black;
         }
 
+        updateFuelUI();
+    }
+
+    private void updateFuelUI()
+    {
         float currentMax = PlayerPrefs.GetFloat("MaxFuel");
-        string fuelString = "Fuel: " + (int)currentFuel + "/" + (int)currentMax;
-        fuelText.SetText(fuelString);
+        maxFuelText.SetText(((int) currentMax).ToString());
+        currentFuelText.SetText(((int)currentFuel).ToString());
+
+        fuelGauge.maxValue = currentMax;
+        fuelGauge.value = currentFuel;
     }
 
     public void updateJetPower(float val)
