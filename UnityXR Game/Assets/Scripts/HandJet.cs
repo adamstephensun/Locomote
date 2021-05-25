@@ -105,6 +105,12 @@ public class HandJet : MonoBehaviour
         fuelGauge.value = currentFuel;
     }
 
+    private void checkForRefill()
+    {
+        //listener?
+
+    }
+
     public void updateJetPower(float val)
     {
         jetPower = val;
