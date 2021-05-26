@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class HandJet : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class HandJet : MonoBehaviour
     private bool particleOn;
     private float currentFuel;
     private float refillTimer;
+    private int fuelChangeFlag;
 
     public float powerMultiplier = 10.0f;
     public float fuelDrainRate;
@@ -32,6 +34,8 @@ public class HandJet : MonoBehaviour
 
     private bool isAudioPlaying;
 
+    private CollisionManager colMan;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +47,7 @@ public class HandJet : MonoBehaviour
         isAudioPlaying = false;
 
         jetSource = gameObject.GetComponentInChildren<AudioSource>();
+        colMan = GameObject.Find("VRRig").GetComponent<CollisionManager>();
 
         startingMaxFuel = 100;
         currentFuel = 100;
@@ -93,6 +98,8 @@ public class HandJet : MonoBehaviour
         }
 
         updateFuelUI();
+
+        if (colMan.fuelChangeFlag) currentFuel = PlayerPrefs.GetFloat("MaxFuel"); colMan.fuelChangeFlag = true;
     }
 
     private void updateFuelUI()
@@ -103,12 +110,6 @@ public class HandJet : MonoBehaviour
 
         fuelGauge.maxValue = currentMax;
         fuelGauge.value = currentFuel;
-    }
-
-    private void checkForRefill()
-    {
-        //listener?
-
     }
 
     public void updateJetPower(float val)

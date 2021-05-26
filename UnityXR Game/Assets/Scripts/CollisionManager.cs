@@ -16,7 +16,9 @@ public class CollisionManager : MonoBehaviour
     public GameObject jetPrefab;
 
     private CarterGames.Assets.AudioManager.AudioManager audioManager;
-    private int fuelChangeFlag;
+
+    [HideInInspector]
+    public bool fuelChangeFlag;
 
     private void Start()
     {
@@ -26,15 +28,14 @@ public class CollisionManager : MonoBehaviour
         rightHand = GameObject.Find("RightHand");
         rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
 
-        fuelChangeFlag = 0;
+        fuelChangeFlag = false;
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("Collision with tag: " + collision.gameObject.tag);
-
         switch (collision.gameObject.tag)
         {
+            //////////---Respawn triggers---///////////
             case "UnderLevel":      //Level wide catch
                 gameObject.transform.position = defaultSpawnPoint.position;
                 break;
@@ -47,59 +48,47 @@ public class CollisionManager : MonoBehaviour
             case "StartAreaFallTrigger":    //Catch if user falls down tube in the start area
                 gameObject.transform.position = startAreaFallSpawnPoint.position;
                 break;
-            case "FuelRefillPickup":
+
+                /////////////---Pickups---//////////////
+            case "RedKey":      //Red key pickup
+                collision.gameObject.GetComponent<AudioSource>().Play();
+                Destroy(collision.gameObject);
+                keyController.KeyAquired("Red");
+                break;
+            case "BlueKey":     //Blue key pickup
+                collision.gameObject.GetComponent<AudioSource>().Play();
+                Destroy(collision.gameObject);
+                keyController.KeyAquired("Blue");
+                break;
+            case "GreenKey":    //Green key pickup
+                collision.gameObject.GetComponent<AudioSource>().Play();
+                Destroy(collision.gameObject);
+                keyController.KeyAquired("Green");
+                break;
+            case "FuelIncreasePickup":      //Max fuel increase pickup
+                //play sound
+                float currentMax = PlayerPrefs.GetFloat("MaxFuel");
+                PlayerPrefs.SetFloat("MaxFuel", currentMax + 10);
+                collision.gameObject.GetComponent<FuelRefillPickup>().pickupCollected();
+                Destroy(collision.gameObject);
+                break;
+            case "FuelRefillPickup":        //Fuel refill ring pickup
                 PlayerPrefs.SetFloat("FuelChangeFlag", PlayerPrefs.GetFloat("MaxFuel"));
-                fuelChangeFlag++;
+                fuelChangeFlag = true;
+                collision.gameObject.GetComponent<AudioSource>().Play();
+                break;
+
+            ////////////---Level---////////////
+            case "BouncePlatform":      //Yellow bounce platforms
                 collision.gameObject.GetComponent<AudioSource>().Play();
                 break;
             default:
                 break;
         }
 
-
-        if(collision.gameObject.tag == "RedKey")
-        {
-            collision.gameObject.GetComponent<AudioSource>().Play();
-            Destroy(collision.gameObject);
-            keyController.KeyAquired("Red");
-        }
-
-        if(collision.gameObject.tag == "BlueKey")
-        {
-            collision.gameObject.GetComponent<AudioSource>().Play();
-            Destroy(collision.gameObject);
-            keyController.KeyAquired("Blue");
-        }
-
-        if (collision.gameObject.tag == "GreenKey")
-        {
-            collision.gameObject.GetComponent<AudioSource>().Play();
-            Destroy(collision.gameObject);
-            keyController.KeyAquired("Green");
-        }
-
-        if (collision.gameObject.tag == "FuelIncreasePickup")
-        {
-            //play sound
-            float currentMax = PlayerPrefs.GetFloat("MaxFuel");
-            PlayerPrefs.SetFloat("MaxFuel", currentMax + 10);
-
-            Debug.Log("Fuel increase pickup! Current max fuel: " + (currentMax + 10));
-
-            Destroy(collision.gameObject);
-        }
-
-        if(collision.gameObject.tag == "BouncePlatform")
-        {
-            //Play bouncy sound
-            collision.gameObject.GetComponent<AudioSource>().Play();
-        }
-
         if (collision.gameObject.tag == "JetPickup")
         {
             audioManager.Play("PositiveChime", CarterGames.Assets.AudioManager.AudioHelper.AudioArgs("position", collision.gameObject.transform.position));
-            //Play sound
-            Debug.Log("Jet Pickup");
             rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
 
             if (rightHandPresence == null)
@@ -113,7 +102,5 @@ public class CollisionManager : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
-
-
     }
 }
