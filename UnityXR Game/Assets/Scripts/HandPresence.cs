@@ -14,8 +14,8 @@ public class HandPresence : MonoBehaviour
 
     public GameObject emptyHandPrefab;
     public GameObject leftControllerPrefab;
-    public GameObject jetPrefab;
     public bool isRight;
+
     private InputDevice targetDevice;
 
     private GameObject spawnedController;
@@ -48,7 +48,6 @@ public class HandPresence : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(!targetDevice.isValid)       //If the device is not valid, try again
@@ -70,7 +69,15 @@ public class HandPresence : MonoBehaviour
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerVal) && triggerVal > 0.1)
             {
                 //Trigger pressed
-                spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
+                if(spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
+                else {
+                    Debug.Log("HandJet not equipped");
+                }
+            }
+
+            if(targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripVal) && gripVal > 0.1)
+            {
+                if (spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<SlideHand>().updateGripValue(gripVal);
             }
 
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValF) && triggerVal < 0.1)
@@ -84,10 +91,5 @@ public class HandPresence : MonoBehaviour
                 //Right thumbstick moved
             }
         }
-    }
-
-    public void updatePrefab()
-    {
-
     }
 }

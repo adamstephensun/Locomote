@@ -7193,6 +7193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jetParticle: {fileID: 6708357412586415210}
   jetNozzle: {fileID: 999446127725949391}
+  startingMaxFuel: 50
   powerMultiplier: 30
   fuelDrainRate: 0.5
   fuelRefillRate: 1

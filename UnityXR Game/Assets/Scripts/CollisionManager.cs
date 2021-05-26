@@ -66,16 +66,15 @@ public class CollisionManager : MonoBehaviour
                 keyController.KeyAquired("Green");
                 break;
             case "FuelIncreasePickup":      //Max fuel increase pickup
-                //play sound
                 float currentMax = PlayerPrefs.GetFloat("MaxFuel");
+                collision.gameObject.GetComponent<AudioSource>().Play();
                 PlayerPrefs.SetFloat("MaxFuel", currentMax + 10);
-                collision.gameObject.GetComponent<FuelRefillPickup>().pickupCollected();
                 Destroy(collision.gameObject);
                 break;
             case "FuelRefillPickup":        //Fuel refill ring pickup
-                PlayerPrefs.SetFloat("FuelChangeFlag", PlayerPrefs.GetFloat("MaxFuel"));
                 fuelChangeFlag = true;
                 collision.gameObject.GetComponent<AudioSource>().Play();
+                collision.gameObject.GetComponent<FuelRefillPickup>().pickupCollected();
                 break;
 
             ////////////---Level---////////////

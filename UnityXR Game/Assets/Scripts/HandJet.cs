@@ -14,12 +14,13 @@ public class HandJet : MonoBehaviour
     private ParticleSystem.EmissionModule em;
     private ParticleSystem.MainModule main;
 
-    private float startingMaxFuel;
+    public float startingMaxFuel;
     private float jetPower;
     private bool particleOn;
     private float currentFuel;
     private float refillTimer;
     private int fuelChangeFlag;
+    private float gripValue;
 
     public float powerMultiplier = 10.0f;
     public float fuelDrainRate;
@@ -49,8 +50,7 @@ public class HandJet : MonoBehaviour
         jetSource = gameObject.GetComponentInChildren<AudioSource>();
         colMan = GameObject.Find("VRRig").GetComponent<CollisionManager>();
 
-        startingMaxFuel = 100;
-        currentFuel = 100;
+        currentFuel = startingMaxFuel;
 
         PlayerPrefs.SetFloat("MaxFuel", startingMaxFuel);
     }
@@ -99,7 +99,11 @@ public class HandJet : MonoBehaviour
 
         updateFuelUI();
 
-        if (colMan.fuelChangeFlag) currentFuel = PlayerPrefs.GetFloat("MaxFuel"); colMan.fuelChangeFlag = true;
+        if (colMan.fuelChangeFlag)
+        {
+            currentFuel = PlayerPrefs.GetFloat("MaxFuel"); 
+            colMan.fuelChangeFlag = false;
+        }
     }
 
     private void updateFuelUI()
