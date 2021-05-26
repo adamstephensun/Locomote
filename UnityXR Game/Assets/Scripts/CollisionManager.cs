@@ -58,35 +58,35 @@ public class CollisionManager : MonoBehaviour
 
             /////////////---Pickups---//////////////
             case "RedKey":      //Red key pickup
-                collision.gameObject.GetComponent<AudioSource>().Play();
+                other.gameObject.GetComponent<AudioSource>().Play();
 
                 keyController.KeyAquired("Red");
-                Destroy(collision.gameObject);
+                Destroy(other.gameObject);
                 break;
             case "BlueKey":     //Blue key pickup
-                collision.gameObject.GetComponent<AudioSource>().Play();
+                other.gameObject.GetComponent<AudioSource>().Play();
 
                 keyController.KeyAquired("Blue");
-                Destroy(collision.gameObject);
+                Destroy(other.gameObject);
                 break;
             case "GreenKey":    //Green key pickup
-                collision.gameObject.GetComponent<AudioSource>().Play();
+                other.gameObject.GetComponent<AudioSource>().Play();
 
                 keyController.KeyAquired("Green");
-                Destroy(collision.gameObject);
+                Destroy(other.gameObject);
                 break;
             case "FuelIncreasePickup":      //Max fuel increase pickup
-                collision.gameObject.GetComponent<AudioSource>().Play();
+                other.gameObject.GetComponent<AudioSource>().Play();
 
                 float currentMax = PlayerPrefs.GetFloat("MaxFuel");
                 PlayerPrefs.SetFloat("MaxFuel", currentMax + 10);
-                Destroy(collision.gameObject);
+                Destroy(other.gameObject);
                 break;
             case "FuelRefillPickup":        //Fuel refill ring pickup
-                collision.gameObject.GetComponent<AudioSource>().Play();
+                other.gameObject.GetComponent<AudioSource>().Play();
 
                 fuelChangeFlag = true;
-                collision.gameObject.GetComponent<FuelRefillPickup>().pickupCollected();
+                other.gameObject.GetComponent<FuelRefillPickup>().pickupCollected();
                 break;
         }
     }

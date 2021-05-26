@@ -5,18 +5,19 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hand
-  - FuelIncreasePickup
   - UnderMapRespawn
   - UnderLevel
+  - UnderMapEnd
+  - StartAreaFallTrigger
   - RedKey
   - BlueKey
-  - BouncePlatform
   - GreenKey
   - JetPickup
-  - StartAreaFallTrigger
-  - FuelRefillPickup
   - SlidePickup
-  - UnderMapEnd
+  - FuelRefillPickup
+  - FuelIncreasePickup
+  - BouncePlatform
+
   layers:
   - Default
   - TransparentFX
