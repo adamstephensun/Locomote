@@ -11,8 +11,8 @@ public class FuelRefillPickup : MonoBehaviour
 
     IEnumerator despawnForABit()
     {
-        gameObject.SetActive(false);
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(5);
-        gameObject.SetActive(true);
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
     }
 }

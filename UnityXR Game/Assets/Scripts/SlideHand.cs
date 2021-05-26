@@ -8,7 +8,7 @@ public class SlideHand : MonoBehaviour
     public PhysicMaterial normalPhysMat;
     public PhysicMaterial slidePhysMat;
 
-    private float gripValue;
+    private bool gripValue;
 
     private MeshRenderer sphereMat;
 
@@ -25,20 +25,20 @@ public class SlideHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gripValue > 0.1)    //Slide activated
+        if (gripValue)    //Slide activated
         {
             playerCollider.material = slidePhysMat;
             sphereMat.material.EnableKeyword("_EMISSION");
            
         }
-        if (gripValue < 0.1)   //Slide deactivated
+        if (!gripValue)   //Slide deactivated
         {
             playerCollider.material = normalPhysMat;
             sphereMat.material.DisableKeyword("_EMISSION");
         }
     }
 
-    public void updateGripValue(float val)
+    public void updateGripValue(bool val)
     {
         gripValue = val;
     }

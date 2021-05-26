@@ -61,7 +61,7 @@ public class HandPresence : MonoBehaviour
                 //Primary button (X/A) pressed
             }
 
-            if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValF) && !primaryButtonVal)
+            if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValF) && !primaryButtonValF)
             {
                 //Primary button not pressed
             }
@@ -70,14 +70,13 @@ public class HandPresence : MonoBehaviour
             {
                 //Trigger pressed
                 if(spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
-                else {
-                    Debug.Log("HandJet not equipped");
-                }
+                else Debug.Log("No trigger input available");
             }
 
-            if(targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripVal) && gripVal > 0.1)
+            if(targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripButton))
             {
-                if (spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<SlideHand>().updateGripValue(gripVal);
+                if (spawnedController.gameObject.name == "SlideHand(Clone)") spawnedController.GetComponent<SlideHand>().updateGripValue(gripButton);
+                else Debug.Log("No input gripButton input available");
             }
 
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValF) && triggerVal < 0.1)

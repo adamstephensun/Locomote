@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c069454a8c60634d9ddd0d1d8d92a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalPhysMat: {fileID: 13400000, guid: 6f57e5ceb241a8049b872f81dfe21e17, type: 2}
+  slidePhysMat: {fileID: 13400000, guid: ac4361c4c4aba9f47920957a5b5c5c58, type: 2}
 --- !u!1 &9149777768274551881
 GameObject:
   m_ObjectHideFlags: 0
