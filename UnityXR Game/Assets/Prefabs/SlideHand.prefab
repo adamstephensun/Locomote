@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalPhysMat: {fileID: 13400000, guid: 6f57e5ceb241a8049b872f81dfe21e17, type: 2}
   slidePhysMat: {fileID: 13400000, guid: ac4361c4c4aba9f47920957a5b5c5c58, type: 2}
+  gripPhysMat: {fileID: 13400000, guid: b4065baf369a0f443ba37ea2299807d4, type: 2}
 --- !u!1 &9149777768274551881
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,16 +56,6 @@ public class HandPresence : MonoBehaviour
         }
         else
         {
-            if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonVal) && primaryButtonVal)
-            {
-                //Primary button (X/A) pressed
-            }
-
-            if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValF) && !primaryButtonValF)
-            {
-                //Primary button not pressed
-            }
-
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerVal) && triggerVal > 0.1)
             {
                 //Trigger pressed
@@ -73,21 +63,22 @@ public class HandPresence : MonoBehaviour
                 else Debug.Log("No trigger input available");
             }
 
-            if(targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripButton))
-            {
-                if (spawnedController.gameObject.name == "SlideHand(Clone)") spawnedController.GetComponent<SlideHand>().updateGripValue(gripButton);
-                else Debug.Log("No input gripButton input available");
-            }
-
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValF) && triggerVal < 0.1)
             {
                 //Trigger not pressed
-                spawnedController.GetComponent<HandJet>().updateJetPower(0);
+                if (spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(0);
             }
 
-            if (targetDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 primary2DAxisVal) && primary2DAxisVal != Vector2.zero)
+            if(targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripButton))
             {
-                //Right thumbstick moved
+                if (spawnedController.gameObject.name == "SlideHand(Clone)") spawnedController.GetComponent<SlideHand>().updateGripValue(gripButton);
+                else Debug.Log("No gripButton input available");
+            }
+
+            if (targetDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerButton))
+            {
+                if (spawnedController.gameObject.name == "SlideHand(Clone)") spawnedController.GetComponent<SlideHand>().updateTriggerValue(triggerButton);
+                else Debug.Log("No triggerButton input available");
             }
         }
     }
