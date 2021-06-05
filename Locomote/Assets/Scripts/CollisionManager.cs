@@ -5,8 +5,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class CollisionManager : MonoBehaviour
 {
-    private CarterGames.Assets.AudioManager.AudioManager audioManager;
-
     private Keys keyController;
 
     private GameObject rightHand;
@@ -26,7 +24,6 @@ public class CollisionManager : MonoBehaviour
 
     private void Start()
     {
-        audioManager = GameObject.Find("AudioManager").GetComponent<CarterGames.Assets.AudioManager.AudioManager>();
         keyController = GameObject.Find("Keys").GetComponent<Keys>();
 
         rightHand = GameObject.Find("RightHand");
@@ -109,8 +106,7 @@ public class CollisionManager : MonoBehaviour
 
         if (collision.gameObject.tag == "JetPickup")
         {
-            audioManager.Play("PositiveChime", CarterGames.Assets.AudioManager.AudioHelper.AudioArgs("position", collision.gameObject.transform.position));
-            //rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
+            collision.gameObject.GetComponent<AudioSource>().Play();
 
             if (rightHandPresence == null)
             {
@@ -127,9 +123,9 @@ public class CollisionManager : MonoBehaviour
         if(collision.gameObject.tag == "SlidePickup")
         {
             Debug.Log("Slide pickup");
-            audioManager.Play("PositiveChime", CarterGames.Assets.AudioManager.AudioHelper.AudioArgs("position", collision.gameObject.transform.position));
-            
-            if(leftHandPresence == null)
+            collision.gameObject.GetComponent<AudioSource>().Play();
+
+            if (leftHandPresence == null)
             {
                 Debug.Log("Could not find left hand presence");
                 leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
