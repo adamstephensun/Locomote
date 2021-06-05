@@ -90,38 +90,7 @@ public class CollisionManager : MonoBehaviour
                 #endregion
         }
 
-        if (other.gameObject.tag == "JetPickup")
-        {
-            other.gameObject.GetComponent<AudioSource>().Play();
 
-            if (rightHandPresence == null)
-            {
-                Debug.Log("Could not find right hand presence");
-                rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
-            }
-
-            rightHandPresence.GetComponent<HandPresence>().emptyHandPrefab = jetPrefab;
-            rightHandPresence.TryInitialiseHands();
-
-            Destroy(other.gameObject);
-        }
-
-        if (other.gameObject.tag == "SlidePickup")
-        {
-            Debug.Log("Slide pickup");
-            other.gameObject.GetComponent<AudioSource>().Play();
-
-            if (leftHandPresence == null)
-            {
-                Debug.Log("Could not find left hand presence");
-                leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
-            }
-
-            leftHandPresence.GetComponent<HandPresence>().leftControllerPrefab = slideHandPrefab;
-            leftHandPresence.TryInitialiseHands();
-
-            Destroy(other.gameObject);
-        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -136,6 +105,39 @@ public class CollisionManager : MonoBehaviour
                 break;
             default:
                 break;
+        }
+
+        if (collision.gameObject.tag == "JetPickup")
+        {
+            collision.gameObject.GetComponent<AudioSource>().Play();
+
+            if (rightHandPresence == null)
+            {
+                Debug.Log("Could not find right hand presence");
+                rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
+            }
+
+            rightHandPresence.GetComponent<HandPresence>().emptyHandPrefab = jetPrefab;
+            rightHandPresence.TryInitialiseHands();
+
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "SlidePickup")
+        {
+            Debug.Log("Slide pickup");
+            collision.gameObject.GetComponent<AudioSource>().Play();
+
+            if (leftHandPresence == null)
+            {
+                Debug.Log("Could not find left hand presence");
+                leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
+            }
+
+            leftHandPresence.GetComponent<HandPresence>().leftControllerPrefab = slideHandPrefab;
+            leftHandPresence.TryInitialiseHands();
+
+            Destroy(collision.gameObject);
         }
     }
 }
