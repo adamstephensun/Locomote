@@ -17,7 +17,6 @@ TagManager:
   - FuelRefillPickup
   - FuelIncreasePickup
   - BouncePlatform
-
   layers:
   - Default
   - TransparentFX
@@ -27,9 +26,9 @@ TagManager:
   - UI
   - 
   - 
-  - Grabbable
-  - Ground
-  - Player
+  - Post-Processing
+  - 
+  - 
   - 
   - 
   - 

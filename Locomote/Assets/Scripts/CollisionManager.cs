@@ -39,6 +39,7 @@ public class CollisionManager : MonoBehaviour
     {
         switch(other.gameObject.tag)
         {
+            #region respawnTriggers
             //////////---Respawn triggers---///////////
             case "UnderLevel":      //Level wide catch
                 gameObject.transform.position = defaultSpawnPoint.position;
@@ -52,7 +53,8 @@ public class CollisionManager : MonoBehaviour
             case "StartAreaFallTrigger":    //Catch if user falls down tube in the start area
                 gameObject.transform.position = startAreaFallSpawnPoint.position;
                 break;
-
+            #endregion 
+            #region pickups
             /////////////---Pickups---//////////////
             case "RedKey":      //Red key pickup
                 other.gameObject.GetComponent<AudioSource>().Play();
@@ -85,28 +87,12 @@ public class CollisionManager : MonoBehaviour
                 fuelChangeFlag = true;
                 other.gameObject.GetComponent<FuelRefillPickup>().pickupCollected();
                 break;
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        //Debug.Log("Collision with tag: "+collision.gameObject.tag);
-
-        switch (collision.gameObject.tag)
-        {
-            
-
-            ////////////---Level---////////////
-            case "BouncePlatform":      //Yellow bounce platforms
-                collision.gameObject.GetComponent<AudioSource>().Play();
-                break;
-            default:
-                break;
+                #endregion
         }
 
-        if (collision.gameObject.tag == "JetPickup")
+        if (other.gameObject.tag == "JetPickup")
         {
-            collision.gameObject.GetComponent<AudioSource>().Play();
+            other.gameObject.GetComponent<AudioSource>().Play();
 
             if (rightHandPresence == null)
             {
@@ -117,13 +103,13 @@ public class CollisionManager : MonoBehaviour
             rightHandPresence.GetComponent<HandPresence>().emptyHandPrefab = jetPrefab;
             rightHandPresence.TryInitialiseHands();
 
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
 
-        if(collision.gameObject.tag == "SlidePickup")
+        if (other.gameObject.tag == "SlidePickup")
         {
             Debug.Log("Slide pickup");
-            collision.gameObject.GetComponent<AudioSource>().Play();
+            other.gameObject.GetComponent<AudioSource>().Play();
 
             if (leftHandPresence == null)
             {
@@ -134,7 +120,22 @@ public class CollisionManager : MonoBehaviour
             leftHandPresence.GetComponent<HandPresence>().leftControllerPrefab = slideHandPrefab;
             leftHandPresence.TryInitialiseHands();
 
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //Debug.Log("Collision with tag: "+collision.gameObject.tag);
+
+        switch (collision.gameObject.tag)
+        {
+            ////////////---Level---////////////
+            case "BouncePlatform":      //Yellow bounce platforms
+                collision.gameObject.GetComponent<AudioSource>().Play();
+                break;
+            default:
+                break;
         }
     }
 }
