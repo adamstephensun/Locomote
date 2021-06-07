@@ -19,6 +19,7 @@ public class HandPresence : MonoBehaviour
     private InputDevice targetDevice;
 
     private GameObject spawnedController;
+    private bool presenceFlag;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +60,7 @@ public class HandPresence : MonoBehaviour
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerVal) && triggerVal > 0.1)
             {
                 //Trigger pressed
-                if(spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
+                if (spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
             }
 
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValF) && triggerVal < 0.1)

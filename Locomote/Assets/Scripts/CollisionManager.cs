@@ -19,6 +19,10 @@ public class CollisionManager : MonoBehaviour
     public Transform underMapSpawnPoint;
     public Transform startAreaFallSpawnPoint;
 
+    public AudioClip pickupClip;
+    public AudioClip dieClip;
+    public AudioClip successClip;
+
     [HideInInspector]
     public bool fuelChangeFlag;
 
@@ -43,43 +47,53 @@ public class CollisionManager : MonoBehaviour
             //////////---Respawn triggers---///////////
             case "UnderLevel":      //Level wide catch
                 gameObject.transform.position = defaultSpawnPoint.position;
+                AudioSource.PlayClipAtPoint(dieClip, gameObject.transform.position);
                 break;
             case "UnderMapEnd":     //End of under map section
                 gameObject.transform.position = defaultSpawnPoint.position;
+                AudioSource.PlayClipAtPoint(successClip, gameObject.transform.position);
                 break;
             case "UnderMapRespawn": //Catch in under map section
                 gameObject.transform.position = underMapSpawnPoint.position;
+                AudioSource.PlayClipAtPoint(dieClip, gameObject.transform.position);
                 break;
             case "StartAreaFallTrigger":    //Catch if user falls down tube in the start area
                 gameObject.transform.position = startAreaFallSpawnPoint.position;
+                AudioSource.PlayClipAtPoint(dieClip, gameObject.transform.position);
                 break;
             #endregion 
             #region pickups
             /////////////---Pickups---//////////////
             case "RedKey":      //Red key pickup
-                other.gameObject.GetComponent<AudioSource>().Play();
+                AudioSource.PlayClipAtPoint(pickupClip, other.gameObject.transform.position);
 
                 keyController.KeyAquired("Red");
                 Destroy(other.gameObject);
                 break;
             case "BlueKey":     //Blue key pickup
-                other.gameObject.GetComponent<AudioSource>().Play();
+                AudioSource.PlayClipAtPoint(pickupClip, other.gameObject.transform.position);
 
                 keyController.KeyAquired("Blue");
                 Destroy(other.gameObject);
                 break;
             case "GreenKey":    //Green key pickup
-                other.gameObject.GetComponent<AudioSource>().Play();
+                AudioSource.PlayClipAtPoint(pickupClip, other.gameObject.transform.position);
 
                 keyController.KeyAquired("Green");
                 Destroy(other.gameObject);
                 break;
             case "FuelIncreasePickup":      //Max fuel increase pickup
-                other.gameObject.GetComponent<AudioSource>().Play();
 
-                float currentMax = PlayerPrefs.GetFloat("MaxFuel");
-                PlayerPrefs.SetFloat("MaxFuel", currentMax + 10);
-                Destroy(other.gameObject);
+                if(!other.gameObject.GetComponent<FuelPickupFlag>().isPickedUp)
+                {
+                    other.gameObject.GetComponent<FuelPickupFlag>().UpdateFlag();
+                    AudioSource.PlayClipAtPoint(pickupClip, other.gameObject.transform.position);
+
+                    float currentMax = PlayerPrefs.GetFloat("MaxFuel");
+                    PlayerPrefs.SetFloat("MaxFuel", currentMax + 10);
+                    Destroy(other.gameObject);
+                }
+
                 break;
             case "FuelRefillPickup":        //Fuel refill ring pickup
                 other.gameObject.GetComponent<AudioSource>().Play();
@@ -89,8 +103,6 @@ public class CollisionManager : MonoBehaviour
                 break;
                 #endregion
         }
-
-
     }
 
     void OnCollisionEnter(Collision collision)
@@ -109,15 +121,16 @@ public class CollisionManager : MonoBehaviour
 
         if (collision.gameObject.tag == "JetPickup")
         {
-            collision.gameObject.GetComponent<AudioSource>().Play();
+            AudioSource.PlayClipAtPoint(pickupClip, collision.gameObject.transform.position);
 
             rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
             if (rightHandPresence == null)
             {
                 Debug.Log("Could not find right hand presence");
+                rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
             }
 
-            rightHandPresence.GetComponent<HandPresence>().emptyHandPrefab = jetPrefab;
+            rightHandPresence.emptyHandPrefab = jetPrefab;
             rightHandPresence.TryInitialiseHands();
 
             Destroy(collision.gameObject);
@@ -126,15 +139,16 @@ public class CollisionManager : MonoBehaviour
         if (collision.gameObject.tag == "SlidePickup")
         {
             Debug.Log("Slide pickup");
-            collision.gameObject.GetComponent<AudioSource>().Play();
+            AudioSource.PlayClipAtPoint(pickupClip, collision.gameObject.transform.position);
 
             leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
             if (leftHandPresence == null)
             {
                 Debug.Log("Could not find left hand presence");
+                leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
             }
 
-            leftHandPresence.GetComponent<HandPresence>().leftControllerPrefab = slideHandPrefab;
+            leftHandPresence.leftControllerPrefab = slideHandPrefab;
             leftHandPresence.TryInitialiseHands();
 
             Destroy(collision.gameObject);
