@@ -60,7 +60,6 @@ public class HandPresence : MonoBehaviour
             {
                 //Trigger pressed
                 if(spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
-                else Debug.Log("No trigger input available");
             }
 
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValF) && triggerVal < 0.1)
@@ -72,13 +71,11 @@ public class HandPresence : MonoBehaviour
             if(targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripButton))       //Slide
             {
                 if (spawnedController.gameObject.name == "SlideHand(Clone)") spawnedController.GetComponent<SlideHand>().updateGripValue(gripButton);
-                else Debug.Log("No gripButton input available");
             }
 
             if (targetDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerButton))    //Friction
             {
                 if (spawnedController.gameObject.name == "SlideHand(Clone)") spawnedController.GetComponent<SlideHand>().updateTriggerValue(triggerButton);
-                else Debug.Log("No triggerButton input available");
             }
         }
     }

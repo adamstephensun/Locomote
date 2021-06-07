@@ -63,6 +63,5 @@ public class SlideHand : MonoBehaviour
     public void updateTriggerValue(bool val)
     {
         triggerValue = val;
-        Debug.Log("TriggerVal: " + triggerValue);
     }
 }

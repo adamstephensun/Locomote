@@ -111,10 +111,10 @@ public class CollisionManager : MonoBehaviour
         {
             collision.gameObject.GetComponent<AudioSource>().Play();
 
+            rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
             if (rightHandPresence == null)
             {
                 Debug.Log("Could not find right hand presence");
-                rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
             }
 
             rightHandPresence.GetComponent<HandPresence>().emptyHandPrefab = jetPrefab;
@@ -128,10 +128,10 @@ public class CollisionManager : MonoBehaviour
             Debug.Log("Slide pickup");
             collision.gameObject.GetComponent<AudioSource>().Play();
 
+            leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
             if (leftHandPresence == null)
             {
                 Debug.Log("Could not find left hand presence");
-                leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
             }
 
             leftHandPresence.GetComponent<HandPresence>().leftControllerPrefab = slideHandPrefab;
