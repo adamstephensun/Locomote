@@ -38,12 +38,12 @@ public class SlideHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gripValue && !triggerValue)    //Slide activated
+        if (gripValue && !triggerValue)    //Slide activated with grip button
         {
             playerCollider.material = slidePhysMat;
             sphereMat.material.color = slideCol;
         }
-        if(triggerValue && !gripValue)      //Grip activated
+        if(triggerValue && !gripValue)      //Grippy activated with trigger button 
         {
             playerCollider.material = gripPhysMat;
             sphereMat.material.color = frictionCol;

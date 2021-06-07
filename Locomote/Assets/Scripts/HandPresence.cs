@@ -69,13 +69,13 @@ public class HandPresence : MonoBehaviour
                 if (spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(0);
             }
 
-            if(targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripButton))
+            if(targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripButton))       //Slide
             {
                 if (spawnedController.gameObject.name == "SlideHand(Clone)") spawnedController.GetComponent<SlideHand>().updateGripValue(gripButton);
                 else Debug.Log("No gripButton input available");
             }
 
-            if (targetDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerButton))
+            if (targetDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerButton))    //Friction
             {
                 if (spawnedController.gameObject.name == "SlideHand(Clone)") spawnedController.GetComponent<SlideHand>().updateTriggerValue(triggerButton);
                 else Debug.Log("No triggerButton input available");
