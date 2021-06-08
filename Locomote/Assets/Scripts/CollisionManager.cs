@@ -19,7 +19,7 @@ public class CollisionManager : MonoBehaviour
     public Transform underMapSpawnPoint;
     public Transform startAreaFallSpawnPoint;
 
-    private AudioClip pickupClip;
+    public AudioClip pickupClip;
 
     [HideInInspector]
     public bool fuelChangeFlag;
@@ -34,7 +34,7 @@ public class CollisionManager : MonoBehaviour
         leftHand = GameObject.Find("LeftHand");
         leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
 
-        pickupClip = Resources.Load<AudioClip>("Audio/Collect.mp3");
+        //pickupClip = Resources.Load<AudioClip>("Audio/Collect.mp3");
 
         fuelChangeFlag = false;
     }

@@ -12,11 +12,14 @@ public class Keys : MonoBehaviour
     private bool redAquired;
     private bool greenAquired;
 
+    public bool allKeys;
+
     void Start()
     {
         blueAquired = false;
         redAquired = false;
         greenAquired = false;
+        allKeys = false;
     }
 
     public void KeyAquired(string colour)
@@ -42,6 +45,7 @@ public class Keys : MonoBehaviour
         if(blueAquired && redAquired && greenAquired)
         {
             //open the gates of babylon yea
+            allKeys = true;
         }
     }
 }
