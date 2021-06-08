@@ -19,9 +19,7 @@ public class CollisionManager : MonoBehaviour
     public Transform underMapSpawnPoint;
     public Transform startAreaFallSpawnPoint;
 
-    public AudioClip pickupClip;
-    public AudioClip dieClip;
-    public AudioClip successClip;
+    private AudioClip pickupClip;
 
     [HideInInspector]
     public bool fuelChangeFlag;
@@ -36,6 +34,8 @@ public class CollisionManager : MonoBehaviour
         leftHand = GameObject.Find("LeftHand");
         leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
 
+        pickupClip = Resources.Load<AudioClip>("Audio/Collect.mp3");
+
         fuelChangeFlag = false;
     }
 
@@ -43,25 +43,6 @@ public class CollisionManager : MonoBehaviour
     {
         switch(other.gameObject.tag)
         {
-            #region respawnTriggers
-            //////////---Respawn triggers---///////////
-            case "UnderLevel":      //Level wide catch
-                gameObject.transform.position = defaultSpawnPoint.position;
-                AudioSource.PlayClipAtPoint(dieClip, gameObject.transform.position);
-                break;
-            case "UnderMapEnd":     //End of under map section
-                gameObject.transform.position = defaultSpawnPoint.position;
-                AudioSource.PlayClipAtPoint(successClip, gameObject.transform.position);
-                break;
-            case "UnderMapRespawn": //Catch in under map section
-                gameObject.transform.position = underMapSpawnPoint.position;
-                AudioSource.PlayClipAtPoint(dieClip, gameObject.transform.position);
-                break;
-            case "StartAreaFallTrigger":    //Catch if user falls down tube in the start area
-                gameObject.transform.position = startAreaFallSpawnPoint.position;
-                AudioSource.PlayClipAtPoint(dieClip, gameObject.transform.position);
-                break;
-            #endregion 
             #region pickups
             /////////////---Pickups---//////////////
             case "RedKey":      //Red key pickup
