@@ -47,7 +47,7 @@ public class HandJet : MonoBehaviour
         main = jetParticle.main;
         isAudioPlaying = false;
 
-        jetSource = gameObject.GetComponentInChildren<AudioSource>();
+        jetSource = GetComponentInChildren<AudioSource>();
         colMan = GameObject.Find("VRRig").GetComponent<CollisionManager>();
 
         currentFuel = startingMaxFuel;
