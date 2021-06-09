@@ -60,13 +60,13 @@ public class HandPresence : MonoBehaviour
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerVal) && triggerVal > 0.1)
             {
                 //Trigger pressed
-                if (spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
+                if (spawnedController.gameObject.name == "HandJet(Clone)" || spawnedController.gameObject.name == "MegaHandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(triggerVal);
             }
 
             if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValF) && triggerVal < 0.1)
             {
                 //Trigger not pressed
-                if (spawnedController.gameObject.name == "HandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(0);
+                if (spawnedController.gameObject.name == "HandJet(Clone)" || spawnedController.gameObject.name == "MegaHandJet(Clone)") spawnedController.GetComponent<HandJet>().updateJetPower(0);
             }
 
             if(targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripButton))       //Friction

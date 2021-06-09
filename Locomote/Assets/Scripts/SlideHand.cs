@@ -68,11 +68,9 @@ public class SlideHand : MonoBehaviour
             
             if(audio.volume > 0)
             {
-                Debug.Log("Vol fadeout: " + audio.volume);
                 audio.volume *= 0.8f;
                 if (audio.volume < 0.1f)
                 {
-                    Debug.Log("Fadeout complete");
                     isAudioPlaying = false;
                     audio.Pause();
                 }

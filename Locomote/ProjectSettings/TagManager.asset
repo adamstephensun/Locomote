@@ -17,6 +17,8 @@ TagManager:
   - FuelRefillPickup
   - FuelIncreasePickup
   - BouncePlatform
+  - Lava
+  - MegaJetPickup
   layers:
   - Default
   - TransparentFX
@@ -29,7 +31,7 @@ TagManager:
   - Post-Processing
   - Ground
   - Wall
-  - 
+  - Player
   - 
   - 
   - 

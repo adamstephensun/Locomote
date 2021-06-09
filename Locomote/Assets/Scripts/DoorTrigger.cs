@@ -8,7 +8,6 @@ public class DoorTrigger : MonoBehaviour
 
     public Animator doorAnim;
 
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")

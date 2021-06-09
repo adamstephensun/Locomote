@@ -26,6 +26,7 @@ public class HandJet : MonoBehaviour
     public float fuelDrainRate;
     public float fuelRefillRate;
     public float refilDelay;
+    public bool infinteFuel;
 
     public TextMeshProUGUI maxFuelText;
     public TextMeshProUGUI currentFuelText;
@@ -65,8 +66,11 @@ public class HandJet : MonoBehaviour
             if (bodyRb != null) bodyRb.AddForce(force);     //If there is a rigidbody, apply the force
             else bodyRb = GameObject.Find("VRRig").GetComponent<Rigidbody>();   //If there is no rb, find it
 
-            refillTimer = 0;    //Resets the fuel refil timer when the jet is powered
-            decreaseFuel();     //Decreases the fuel level
+            if (!infinteFuel)
+            {
+                refillTimer = 0;    //Resets the fuel refil timer when the jet is powered
+                decreaseFuel();     //Decreases the fuel level
+            }
 
             main.startSpeed = 4 + jetPower; //Changes the speed of the particle system based on the power
 

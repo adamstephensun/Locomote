@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4257342916774902072}
   - component: {fileID: 7876677058941562985}
-  m_Layer: 0
-  m_Name: RightHandPresencEmpty
+  m_Layer: 11
+  m_Name: RightHandPresene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerCharacteristics: 576
-  controllerPrefab: {fileID: 7002759934929351029, guid: b7956e10b5aa8c74b9cd303f5afa1bd7,
+  emptyHandPrefab: {fileID: 7002759934929351029, guid: b7956e10b5aa8c74b9cd303f5afa1bd7,
     type: 3}
   leftControllerPrefab: {fileID: 7002759934929351029, guid: b7956e10b5aa8c74b9cd303f5afa1bd7,
     type: 3}

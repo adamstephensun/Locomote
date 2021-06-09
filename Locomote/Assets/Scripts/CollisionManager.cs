@@ -7,12 +7,13 @@ public class CollisionManager : MonoBehaviour
 {
     private Keys keyController;
 
-    private GameObject rightHand;
-    private GameObject leftHand;
+    public GameObject rightHand;
+    public GameObject leftHand;
     private HandPresence rightHandPresence;
     private HandPresence leftHandPresence;
 
     public GameObject jetPrefab;
+    public GameObject megaJetPrefab;
     public GameObject slideHandPrefab;
 
     public Transform defaultSpawnPoint;
@@ -20,6 +21,7 @@ public class CollisionManager : MonoBehaviour
     public Transform startAreaFallSpawnPoint;
 
     public AudioClip pickupClip;
+    public AudioClip lavaClip;
 
     [HideInInspector]
     public bool fuelChangeFlag;
@@ -28,13 +30,11 @@ public class CollisionManager : MonoBehaviour
     {
         keyController = GameObject.Find("Keys").GetComponent<Keys>();
 
-        rightHand = GameObject.Find("RightHand");
-        rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
+        //rightHand = GameObject.Find("RightHand");
+        //rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
 
-        leftHand = GameObject.Find("LeftHand");
-        leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
-
-        //pickupClip = Resources.Load<AudioClip>("Audio/Collect.mp3");
+        //leftHand = GameObject.Find("LeftHand");
+        //leftHandPresence = leftHand.GetComponentInChildren<HandPresence>();
 
         fuelChangeFlag = false;
     }
@@ -59,6 +59,8 @@ public class CollisionManager : MonoBehaviour
                 break;
             case "GreenKey":    //Green key pickup
                 AudioSource.PlayClipAtPoint(pickupClip, other.gameObject.transform.position);
+
+                other.gameObject.GetComponent<GreenKeyTrigger>().OpenWall();
 
                 keyController.KeyAquired("Green");
                 Destroy(other.gameObject);
@@ -107,11 +109,31 @@ public class CollisionManager : MonoBehaviour
             rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
             if (rightHandPresence == null)
             {
-                Debug.Log("Could not find right hand presence");
+                Debug.Log("right hand presence not found");
                 rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
             }
 
             rightHandPresence.emptyHandPrefab = jetPrefab;
+            Debug.Log("Jet hand pickup");
+            rightHandPresence.TryInitialiseHands();
+
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "MegaJetPickup")
+        {
+            Debug.Log("Mega jet pickup");
+
+            AudioSource.PlayClipAtPoint(pickupClip, collision.gameObject.transform.position);
+
+            rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
+            if (rightHandPresence == null)  //if failed to get presence, try again
+            {
+                Debug.Log("Could not find right hand presence");
+                rightHandPresence = rightHand.GetComponentInChildren<HandPresence>();
+            }
+
+            rightHandPresence.emptyHandPrefab = megaJetPrefab;
             rightHandPresence.TryInitialiseHands();
 
             Destroy(collision.gameObject);
